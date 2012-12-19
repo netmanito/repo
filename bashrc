@@ -3,29 +3,31 @@
 
 ## history control
 HISTFILESIZE=50000
-HISTSIZE=50000
+HISTSIZE=1000
 HISTCONTROL=ignoredups
 # PROMPT_COMMAND='history -a'
 # shopt -s histappend
 
 ## Options
-HOME="/Users/jaci"
+HOME="/Users/youruser"
 ENV=$HOME/.bashrc
 export ENV
 SHELL=/bin/bash
 
 GREP_COLOR="0;32"
-PATH=$PATH:/bin:/usr/bin:/sbin:/usr/local/bin:"~/bin"
+#PATH=$PATH:/bin:/usr/bin:/sbin:/usr/local/bin:"~/bin"
 PATH=/opt/local/bin:$PATH:$HOME/bin:/usr/local/bin:/sw/bin:/sw/sbin:/bin:/sbin:/usr/bin:/usr/sbin
 
+# this is from fink for osX
 # test -r /sw/bin/init.sh && . /sw/bin/init.sh
 
-## PS options
-PS1='\[\e[0;32m\]\u\[\e[m\] \[\e[1;34m\]\w\[\e[m\] \[\e[m\] \[\e[1;32m\]\$ \[\e[m\]\[\e[1;37m\] '
-
-## Alias
 # If running interactively, then:
 if [ "$PS1" ]; then
+
+## PS options
+
+PS1='\[\e[0;32m\]\u\[\e[m\] \[\e[1;34m\]\w\[\e[m\] \[\e[m\] \[\e[1;32m\]\$ \[\e[m\]\[\e[1;37m\] '
+
 PS1="\n<\[\033[0;34m\]\u\[\033[0m\]@\[\033[0;34m\]\h\[\033[0m\]>#\[\033[0;32m\](\$(/Users/jaci/bin/TBytes.sh) Mb\[\033[0;32m\])\033[0m\]\w$: "; fi
 
 # don't put duplicate lines in the history. See bash(1) for more options
