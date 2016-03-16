@@ -1,0 +1,38 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          firewall
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Start daemon at boot time
+# Description:       Enable service provided by daemon.
+### END INIT INFO
+case $1 in
+ start)
+  echo "miscelanea"
+  echo "Configurando Router"
+  echo 1 > /proc/sys/net/ipv4/ip_forward
+ iptables -t nat -A POSTROUTING -o eth1 -j MASQUERADE
+
+ # puerto de entrada ssh a intranet.salutis-research.com
+ #iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -s demo.salutis-research.net -j DNAT --to 172.26.0.100:80
+ #iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 21 -j DNAT --to 172.26.0.100:21
+
+# Configuracion del bridge, sin spanning tree
+#  ifconfig eth1 up
+#  ifconfig eth2 up
+#  brctl addbr br0
+#  brctl addif br0 eth2
+#  brctl addif br0 eth1
+  
+#  /usr/local/sbin/iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+  modprobe ip_conntrack_ftp
+  modprobe ip_nat_ftp
+  modprobe ip_conntrack_irc
+ ;;
+ stop)
+  echo "Borrando reglas de iptables"
+  iptables -t nat -F
+ ;;
+esac
