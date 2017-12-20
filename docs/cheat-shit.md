@@ -75,3 +75,41 @@ iptables -t nat -A POSTROUTING -p tcp -d 10.32.25.2 --dport 80 -j MASQUERADE
 #### EGrep exclude empty lines and anchor #
 
 	cat file |egrep -v "^#|^$"
+
+##### Explanation
+
+Try the following:
+
+	grep -v -e '^$' foo.txt
+
+The -e option allows regex patterns for matching.
+
+The single quotes around ^$ makes it work for Cshell. Other shells will be happy with either single or double quotes.
+
+UPDATE: This works for me for a file with blank lines or "all white space" (such as windows lines with "\r\n" style line endings), whereas the above only removes files with blank lines and unix style line endings:
+
+	grep -e -v '^[[:space:]]*$' foo.txt
+
+#### Change user uid and gid, also file permissions
+
+In this example we change uid and gid on user elasticsearch, 
+
+	[root@elkm02 ~]# id elasticsearch
+	uid=997(elasticsearch) gid=995(elasticsearch) grupos=995(elasticsearch)
+
+Currently has **997** for uid and **995** at group, we want to change so it matches other cluster users and will fix permissions for **_snapshot** directories on elasticsearch.
+
+Remember to check before if those uid and gid numbers are already used by other user/groups
+
+Change uuid 
+
+	usermod -u 996 elasticsearch
+
+Change gid
+
+    groupmod -g 994 elasticsearch
+
+Find and change all file belongings to user-group
+
+    find / -uid 997 -exec chown elasticsearch {} \;
+    find / -gid 995 -exec chgrp elasticsearch {} \;
