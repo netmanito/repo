@@ -4,7 +4,7 @@
 
 CERT="/etc/elasticsearch/x-pack/ssl/ca/ca.pem"
 CACERT="/etc/elasticsearch/x-pack/ssl/ca/ca.crt"
-URL="10.71.7.63:9200"
+URL="127.0.0.1:9200"
 
 curl --cert $CERT --cacert $CACERT -XGET https://$URL/$1
 

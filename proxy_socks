@@ -1,0 +1,3 @@
+echo  -n We\'re better, 
+ssh -D 9001 -fN servername
+echo connected
