@@ -120,6 +120,14 @@ Los archivos de configuración de Logstash siguen el siguente patrón
       }
 	}Este ejemplo de configuración tiene 2 entradas en la sección **input**, el primero lee el archivo **/var/log/syslog** y el segundo abre el puerto TCP 5000 para recibir desde cualquier agente *Beats*
 En la sección **filter{}** introduciremos todos los procesados que queramos hacer a los datos que recibimos.
+
+Por ejemplo para procesar logs de Apache:
+
+	filter {
+    grok {
+        match => { "message" => "%{COMBINEDAPACHELOG}"}
+    	}
+	}
 La sección **output** es la salida de los datos procesados, en este caso tenemos 2 salidas, **stdout** que nos los mostrará en pantalla (ideal para pruebas) y **elasticsearch**, donde enviaremos a un sistema elasticsearch.
 ## Ingestión de Datos
 Existen múltiples opciones y maneras de enviar datos a elasticearch. En nuestro caso utilizaremos logstash por el puerto 5000 con el agente BEATS de elasticsearch.
@@ -127,4 +135,72 @@ Los archivos de configuración de Logstash siguen el siguente patrón
 [https://www.elastic.co/downloads/beats](https://www.elastic.co/downloads/beats)* filebeat -> para leer archivos log y enviarlos a logstash o elasticsearch 
 * metribeat -> para leer información del sistema (cpu, RAM, io disk, procesos, etc.)
 * winlogbeat -> agente para leer logs de windows
-* packetbeat -> agente para analizar el tráfico de red## CONSIDERACIONES•	El documento sólo contempla la instalación del aplicativo elasticsearch de forma individual. No incluye información configuración en modo cluster ni optimizaciones asociadas al uso cómo cluster.•	 El funcionamiento de elasticsearch permite escalabilidad añadiendo más elasctisearch en forma de nodos.•	Un solo nodo no tiene persistencia de datos, si este cae, se pierde la información. Un cluster de elasticsearch con 2 o más nodos de datos permite persistencia en los datos si alguno de los nodos cae. Lo óptimo son 3 nodos de datos y 3 nodos en modo master.•	Sólo puede haber un nodo MASTER activo en el cluster, pero tener varios que son elegibles como tal.•	Los nodos pueden trabajar como contenedores de datos (data-node) o gestores de datos que no almacenan datos, solo los importan (ingest-node) o permiten búsquedas de éstos. Por defecto trabajan almacenando datos y en modo MASTER.•	El directorio /var/lib/elasticsearch debe tener un filesystem propio y con capacidad de  ex-tender el tamaño para albergar los datos críticos del servicio. 
+* packetbeat -> agente para analizar el tráfico de red#### Requisitos para indexar logs en máquinas ajenas.
+
+1 - usuario con acceso a los logs que se vayan a indexar (permisos de lectura) y al aplicativo que se utilice para ello. **Filebeat**
+
+2 - aplicación para el envío de logs al stack de ELK (ha de tener permisos de lectura de los logs) **Filebeat**
+
+3 - El host ha de tener visibilidad con el endpoint de Elasticsearch o de Logstash
+
+4 - Los agentes de métricas (Packetbeat y Metricbeat) inicialmente enviarán directamente a elastic, no necesitan pasar por Logstash a no ser que queramos alterar los datos.## CONSIDERACIONES•	El documento sólo contempla la instalación del aplicativo elasticsearch de forma individual. No incluye información configuración en modo cluster ni optimizaciones asociadas al uso cómo cluster.•	 El funcionamiento de elasticsearch permite escalabilidad añadiendo más elasctisearch en forma de nodos.•	Un solo nodo no tiene persistencia de datos, si este cae, se pierde la información. Un cluster de elasticsearch con 2 o más nodos de datos permite persistencia en los datos si alguno de los nodos cae. Lo óptimo son 3 nodos de datos y 3 nodos en modo master.•	Sólo puede haber un nodo MASTER activo en el cluster, pero tener varios que son elegibles como tal.•	Los nodos pueden trabajar como contenedores de datos (data-node) o gestores de datos que no almacenan datos, solo los importan (ingest-node) o permiten búsquedas de éstos. Por defecto trabajan almacenando datos y en modo MASTER.•	El directorio /var/lib/elasticsearch debe tener un filesystem propio y con capacidad de  ex-tender el tamaño para albergar los datos críticos del servicio. ## Enlaces de Interés
+[Elasticsearch CheatSheet](http://elasticsearch-cheatsheet.jolicode.com) | http://elasticsearch-cheatsheet.jolicode.com
+
+[Elasticsearch Documentation](https://www.elastic.co/guide/index.html) | https://www.elastic.co/guide/index.html
+
+[Grokdebugger for Logstash patterns](https://grokdebug.herokuapp.com/) | https://grokdebug.herokuapp.com/
+
+### Otros enlaces[http://blogs.cisco.com/security/step-by-step-setup-of-elk-for-netflow-analytics](http://blogs.cisco.com/security/step-by-step-setup-of-elk-for-netflow-analytics)
+
+[https://qbox.io/blog/custom-mapping-methods-in-elasticsearch](https://qbox.io/blog/custom-mapping-methods-in-elasticsearch)
+
+[https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-put-mapping.html](https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-put-mapping.html)
+
+[http://joshuadlewis.blogspot.com.es/2014/10/advanced-threat-detection-with-sysmon_74.html?m=1](http://joshuadlewis.blogspot.com.es/2014/10/advanced-threat-detection-with-sysmon_74.html?m=1)
+
+[http://ict.renevdmark.nl/2016/07/05/elastic-beats-on-raspberry-pi/](http://ict.renevdmark.nl/2016/07/05/elastic-beats-on-raspberry-pi/)
+[https://qbox.io/blog/optimizing-elasticsearch-how-many-shards-per-index](https://qbox.io/blog/optimizing-elasticsearch-how-many-shards-per-index)
+
+[https://skizzlesec.com/2014/06/08/security-analysts-discuss-siems-elasticsearchlogstashkibana-vs-arcsight-splunk-and-more/](https://skizzlesec.com/2014/06/08/security-analysts-discuss-siems-elasticsearchlogstashkibana-vs-arcsight-splunk-and-more/)
+
+[http://es.slideshare.net/prajalkulkarni/attack-monitoring-using-elasticsearch-logstash-and-kibana](http://es.slideshare.net/prajalkulkarni/attack-monitoring-using-elasticsearch-logstash-and-kibana)
+
+[http://www.wazuh.com/elk-stack/](http://www.wazuh.com/elk-stack/)
+
+[http://blog.davidvassallo.me/2015/06/28/alienvault-elk-integration/](http://blog.davidvassallo.me/2015/06/28/alienvault-elk-integration/)
+
+[https://www.blueliv.com/corporate/protecting-companies-against-cyber-threats-using-the-elk-stack/](https://www.blueliv.com/corporate/protecting-companies-against-cyber-threats-using-the-elk-stack/)
+
+[http://www.ceus-now.com/elk-stack-as-a-siem-first-steps/](http://www.ceus-now.com/elk-stack-as-a-siem-first-steps/)
+
+[http://es.slideshare.net/atf117/using-elk-explore-defect-data](http://es.slideshare.net/atf117/using-elk-explore-defect-data)
+
+[http://logz.io/blog/siem-dashboard-aws-elk-stack/](http://logz.io/blog/siem-dashboard-aws-elk-stack/)
+
+[http://documentation.wazuh.com/en/latest/ossec_elk.html](http://documentation.wazuh.com/en/latest/ossec_elk.html)
+
+[http://ecmarchitect.com/archives/2015/07/27/4031](http://ecmarchitect.com/archives/2015/07/27/4031)
+
+[https://www.loggly.com/blog/nine-tips-configuring-elasticsearch-for-high-performance/](https://www.loggly.com/blog/nine-tips-configuring-elasticsearch-for-high-performance/)
+
+[https://www.elastic.co/guide/en/elasticsearch/guide/current/_rolling_restarts.html](https://www.elastic.co/guide/en/elasticsearch/guide/current/_rolling_restarts.html)
+
+[http://operational.io/elk-stack-for-network-operations-reloaded/](http://operational.io/elk-stack-for-network-operations-reloaded/)
+
+[https://www.digitalocean.com/community/tutorials/how-to-gather-infrastructure-metrics-with-topbeat-and-elk-on-ubuntu-14-04](https://www.digitalocean.com/community/tutorials/how-to-gather-infrastructure-metrics-with-topbeat-and-elk-on-ubuntu-14-04)
+
+[http://logz.io/blog/infrastructure-monitoring-topbeat-elk-stack/](http://logz.io/blog/infrastructure-monitoring-topbeat-elk-stack/)
+
+[https://github.com/taskrabbit/elasticsearch-dump](https://github.com/taskrabbit/elasticsearch-dump)
+
+[https://hal.inria.fr/hal-01212015/file/slides-ELK.pdf](https://hal.inria.fr/hal-01212015/file/slides-ELK.pdf)
+
+[https://www.elastic.co/blog/monitoring-windows-logons-with-winlogbeat](https://www.elastic.co/blog/monitoring-windows-logons-with-winlogbeat)
+
+[https://technet.microsoft.com/windows-server-docs/identity/ad-ds/plan/appendix-l--events-to-monitor](https://technet.microsoft.com/windows-server-docs/identity/ad-ds/plan/appendix-l--events-to-monitor)
+
+[https://skizzlesec.com/2014/06/08/security-analysts-discuss-siems-elasticsearchlogstashkibana-vs-arcsight-splunk-and-more/](https://skizzlesec.com/2014/06/08/security-analysts-discuss-siems-elasticsearchlogstashkibana-vs-arcsight-splunk-and-more/)
+
+[http://es.slideshare.net/prajalkulkarni/attack-monitoring-using-elasticsearch-logstash-and-kibana](http://es.slideshare.net/prajalkulkarni/attack-monitoring-using-elasticsearch-logstash-and-kibana)
+
+[http://www.wazuh.com/elk-stack/](http://www.wazuh.com/elk-stack/)
