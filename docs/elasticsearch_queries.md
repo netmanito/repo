@@ -173,6 +173,19 @@
 	    }
 	  }
 
+## DELETE from query
+
+```
+POST quorum-2018.10*/_delete_by_query
+{
+  "query": { 
+    "match": {
+      "old_round": "0"
+    }
+  }
+}
+```
+
 ## SNAPSHOTS & BACKUPS
 
 
