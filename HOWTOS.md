@@ -675,6 +675,10 @@ defaults write com.google.Keystone.Agent checkInterval 604800
 	log stream --predicate 'eventMessage contains "docker"'
 
 
+### sudo nopasswd
+
+	%sudo  ALL=(ALL) NOPASSWD:ALL
+
 ### npm truffle
 
 ```
