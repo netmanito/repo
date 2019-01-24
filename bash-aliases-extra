@@ -1,0 +1,42 @@
+## Docker alias
+
+#alias dockbash='docker exec -i -t $1'
+alias dps='docker ps'
+alias drm='docker rm $1'
+alias dstop='docker stop $1'
+alias dkill='docker kill $(docker ps -q)'
+## stats
+alias dstats='docker stats $(docker ps --format={{.Names}})'
+# Delete all containers
+alias dockerclean='docker system prune'
+# Delete all images
+alias dockerrmi='docker rmi -f $(docker images -q)'
+## remove all non-running containers
+#drm() { docker rm $(docker ps -q -a); }
+alias dclean='docker rmi $(docker images --filter dangling=true -q --no-trunc)'
+## run interactive containers
+alias dki="docker run -t -i -P"
+## run daemonized containers
+alias dkd="docker run -d -P"
+## docker build
+db() { docker build --rm -t="$1" .; }
+## enter into container
+function dent {
+docker exec -i -t $1 /bin/bash
+}
+complete -F _docker_exec dent
+# run bash for any image
+function dbash {
+docker run --rm -i -t -e TERM=xterm --entrypoint /bin/bash $1
+}
+complete -F _docker_images dbash
+
+## K8 alias
+
+alias getpods="kubectl get pods"
+alias getallpods="kubectl get pods --all-namespaces"
+alias getnodes="kubectl get nodes"
+alias getservices="kubectl get services"
+alias getdep="kubectl get deployments"
+alias kc="kubectl"
+alias getports="kubectl get svc"
