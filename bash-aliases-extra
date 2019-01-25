@@ -1,3 +1,8 @@
+## helpfull
+
+alias nstat='netstat -antp |grep LISTEN'
+alias fuck='sudo !!'
+
 ## Docker alias
 
 #alias dockbash='docker exec -i -t $1'
