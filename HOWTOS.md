@@ -186,6 +186,20 @@ git checkout experiment -- app.js # then copy the version of app.js
                                   # from branch "experiment"
 ```
 
+### delete branch
+
+To remove a local branch 
+
+```
+git branch -d the_local_branch
+```
+
+To remove a remote branch (if you know what you are doing!)
+
+```
+git push origin --delete the_remote_branch
+```
+
 ## Some links 
 
 http://www.genericarticles.com/mediawiki/index.php?title=Clustering_%26_Tuning_elastic_search
@@ -714,6 +728,16 @@ Find and change all file belongings to user-group
 ```
 find / -uid 997 -exec chown elasticsearch {} \;
 find / -gid 995 -exec chgrp elasticsearch {} \;
+```
+### EtcKeeper
+
+Follow these steps [https://coderwall.com/p/v1agsg/installing-etckeeper-to-store-config-with-autopush-to-git-in-ubuntu-14-04-lts](https://coderwall.com/p/v1agsg/installing-etckeeper-to-store-config-with-autopush-to-git-in-ubuntu-14-04-lts)
+
+## Debian Update
+
+```
+$ sudo sed -i /deb/s/jessie/stretch/g /etc/apt/sources.list
+$ sudo sed -i /deb/s/jessie/stretch/g /etc/apt/sources.list.d/*.list
 ```
 
 #######################################################################################################

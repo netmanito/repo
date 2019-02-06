@@ -1,40 +1,91 @@
-## helpfull
+## basic helpfull alias
 
+alias ssh='ssh -C'
+alias pid=' ps aux -ww|cut -d : -f 2'
+alias l='ls -lGh'
+alias lt=' ls -ltras'
+alias ll=' ls -lhaGs'
+alias la='ls -latrhsGC'
+alias las='ls -ltras'
+alias dir='ls -lGC'
+alias die='killall ssh'
+alias hist='history |grep $1'
+alias fdupe='fdupes -rndfS'
 alias nstat='netstat -antp |grep LISTEN'
 alias fuck='sudo !!'
 
-## Docker alias
+alias hosts='cat ~/.ssh/config |grep Host |grep -iv Name'
+alias Escritorio='cd ~/Desktop'
+alias escritorio='cd ~/Desktop'
+alias descargas='cd ~/Downloads'
+alias downloads='cd ~/Downloads'
+alias pong='ping google.es'
+alias desktop='cd ~/Desktop'
 
-#alias dockbash='docker exec -i -t $1'
+## Virtualbox
+
+alias listvms='VBoxManage list vms'
+
+function startvm { 
+   VBoxManage startvm $1 --type=headless 
+   }
+
+function stopvm {
+   VBoxManage controlvm $1 savestate 
+   }
+
+# apple mac aliases
+alias tmstatus='watch -n2 tmutil status'
+alias flushcache='sudo dscacheutil -flushcache;sudo killall -HUP mDNSResponder; say cache flushed'
+alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
+alias ShowFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
+alias finderKill="killall Finder"
+alias c='clear'
+
+## Docker alias
 alias dps='docker ps'
 alias drm='docker rm $1'
 alias dstop='docker stop $1'
+
+## killing in the name of 
+## for i in `docker ps |awk {'print $1'} | grep '[a-z,0-9]'`; do docker stop $i;done
 alias dkill='docker kill $(docker ps -q)'
+
 ## stats
 alias dstats='docker stats $(docker ps --format={{.Names}})'
+
 # Delete all containers
 alias dockerclean='docker system prune'
+
 # Delete all images
 alias dockerrmi='docker rmi -f $(docker images -q)'
+
 ## remove all non-running containers
 #drm() { docker rm $(docker ps -q -a); }
 alias dclean='docker rmi $(docker images --filter dangling=true -q --no-trunc)'
 ## run interactive containers
 alias dki="docker run -t -i -P"
+
 ## run daemonized containers
 alias dkd="docker run -d -P"
+
 ## docker build
 db() { docker build --rm -t="$1" .; }
+
 ## enter into container
 function dent {
 docker exec -i -t $1 /bin/bash
 }
 complete -F _docker_exec dent
+
 # run bash for any image
 function dbash {
 docker run --rm -i -t -e TERM=xterm --entrypoint /bin/bash $1
 }
 complete -F _docker_images dbash
+
+## check container network
+function docknet { docker inspect $1 -f "{{json .NetworkSettings.Networks }}" }
 
 ## K8 alias
 
@@ -45,3 +96,24 @@ alias getservices="kubectl get services"
 alias getdep="kubectl get deployments"
 alias kc="kubectl"
 alias getports="kubectl get svc"
+
+## Functions
+
+function cheat() { curl cheat.sh/$1; }
+
+function rhost() {
+    for i in `host $1|grep "has address"|awk '{print $4}'`
+        do
+            host $i|grep pointer|awk '{print "'$i'\t"$5}'
+        done
+}
+
+function dusort() {
+    du -s $1/* | sort -n | cut -f 2- | while read a; do du -sh "$a" ; done
+}
+
+function del-ssh() {
+   sed -i -e $1d ~/.ssh/known_hosts
+}
+## End
+
