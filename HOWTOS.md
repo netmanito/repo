@@ -200,6 +200,21 @@ To remove a remote branch (if you know what you are doing!)
 git push origin --delete the_remote_branch
 ```
 
+### Disable TLS/SSL git verification
+
+To disable TLS/SSL verification for a single git command
+try passing -c to git with the proper config variable, or use Flow's answer:
+
+`git -c http.sslVerify=false clone https://example.com/path/to/git`
+
+To disable SSL verification for a specific repository
+If the repository is completely under your control, you can try:
+
+`git config http.sslVerify false`
+
+Disabling TLS(/SSL) certificate verification globally is a terribly insecure practice. Don't do it. 
+Do not issue the above command with a `--global` modifier.
+
 ## Some links 
 
 http://www.genericarticles.com/mediawiki/index.php?title=Clustering_%26_Tuning_elastic_search
