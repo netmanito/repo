@@ -27,7 +27,7 @@ docker run --rm -i -t -e TERM=xterm --entrypoint /bin/bash $1
 complete -F _docker_images dbash
 
 ## check container network
-function docknet() { docker inspect $1 -f "{{json .NetworkSettings.Networks }}" }
+function docknet() { docker inspect $1 -f '{{json .NetworkSettings.Networks }}' }
 
 ## Functions
 function cheat() { curl cheat.sh/$1; }
