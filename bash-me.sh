@@ -20,10 +20,10 @@ else
         echo ".bash_aliases found on your home directory"
         echo "adding data to it ..."
         echo "## bash aliases extra " >> ~/.bash_aliases
-        cat bash-aliases-extra >> .bash_aliases
-        cat bash-aliases-functions >> .bash_aliases
+        cat bash-aliases-extra >> ~/.bash_aliases
+        cat bash-aliases-functions >> ~/.bash_aliases
         echo "updating shell"
-        source .bashrc
+        source ~/.bashrc
         rm bash-aliases-{extra,functions}
         echo "All Done!!"
 
