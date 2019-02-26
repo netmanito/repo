@@ -57,8 +57,8 @@ alias dclean='docker rmi $(docker images --filter dangling=true -q --no-trunc)'
 ## run interactive containers
 alias dki="docker run -t -i -P"
 
-## run daemonized containers
-alias dkd="docker run -d -P"
+## docker container names
+alias dnames="docker ps | awk '{print $NF}'"
 
 ## K8 alias
 

@@ -755,4 +755,14 @@ $ sudo sed -i /deb/s/jessie/stretch/g /etc/apt/sources.list
 $ sudo sed -i /deb/s/jessie/stretch/g /etc/apt/sources.list.d/*.list
 ```
 
+## gpg-agent
+
+[https://medium.com/@doronsegal/gpg-agent-is-older-than-x-e8860a383cb0](https://medium.com/@doronsegal/gpg-agent-is-older-than-x-e8860a383cb0)
+
+It seems like the version of the running gpg agent was different from the one pass was running (under the hood it’s GnuPG). In order to be able to read my password again I had to “kill” the running agent so the GnuPG could use the newer version (I was using -v for verbose mode).
+
+```
+gpgconf --kill -v gpg-agent
+```
+
 #######################################################################################################
