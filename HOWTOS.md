@@ -765,4 +765,17 @@ It seems like the version of the running gpg agent was different from the one pa
 gpgconf --kill -v gpg-agent
 ```
 
+## password-store pattern
+
+When using `pass` save passwords with this pattern in order to make firefox plugin work.
+
+```
+MyPassword
+---
+path / reference.com
+username: username
+password: MyPassword
+url: http://www.example.com/path
+```
+
 #######################################################################################################
