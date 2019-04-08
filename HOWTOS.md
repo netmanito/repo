@@ -454,7 +454,9 @@ index.number_of_replicas: 0
 
 ```
 pv -tpreb openelec_raspi_imagenio.img | dd of=/dev/disk1 bs=1m
-dd if=/dev/urandom | pv | dd of=/dev/null
+| dd if=/dev/urandom | pv | dd of=/dev/null
+
+pv -treb 2017-11-29-raspbian-stretch-lite.img | dd of=/dev/disk2 bs=1m && sync
 ```
 
 ## Forward to a Gmail mail server
@@ -776,6 +778,23 @@ path / reference.com
 username: username
 password: MyPassword
 url: http://www.example.com/path
+```
+
+## Install GO
+
+```
+curl -O https://storage.googleapis.com/golang/go1.11.2.linux-amd64.tar.gz
+ tar xvzf go1.11.2.linux-amd64.tar.gz 
+ sudo mv go /usr/local/
+ export GOPATH=/usr/local/go
+ export PATH=$PATH:$GOPATH/bin
+ echo $PATH
+ echo $GOPATH
+ echo "export GOPATH=/usr/local/go" >> .bashrc 
+ echo "export PATH=$PATH:$GOPATH/bin" >> .bashrc 
+ go version
+ export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+ go version
 ```
 
 #######################################################################################################

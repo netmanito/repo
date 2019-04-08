@@ -116,7 +116,14 @@ API version 2:
     API version 2:
 
 ```
-{"data":[["2017-02-23 CET 00:00:02","AAAA","raspberrypi","localhost","OK",""],["2017-02-23 CET 00:00:02","AAAA","raspberrypi","localhost","OK",""],["2017-02-23 CET 00:02:16","AAAA","android.clients.google.com","android-a4.local","OK",""],["2017-02-23 CET 00:02:16","A","android.clients.google.com","android-a4.local","OK",""],["2017-02-23 CET 00:02:25","AAAA","player.onleihe.de","android-53.local","OK",""],["2017-02-23 CET 00:03:18","AAAA","clientservices.googleapis.com","android-53.local","OK",""], ... ]}
+{"data":[
+["2017-02-23 CET 00:00:02","AAAA","raspberrypi","localhost","OK",""],
+["2017-02-23 CET 00:00:02","AAAA","raspberrypi","localhost","OK",""],
+["2017-02-23 CET 00:02:16","AAAA","android.clients.google.com","android-a4.local","OK",""],
+["2017-02-23 CET 00:02:16","A","android.clients.google.com","android-a4.local","OK",""],
+["2017-02-23 CET 00:02:25","AAAA","player.onleihe.de","android-53.local","OK",""],
+["2017-02-23 CET 00:03:18","AAAA","clientservices.googleapis.com","android-53.local","OK",""]
+, ... ]}
 ```
 
 *    First column: Timestring of query
@@ -129,7 +136,13 @@ API version 2:
     API version 3:
 
 ```
-{"data":[["1487804402","IPv6","raspberrypi","localhost","3"],["1487804402","IPv6","raspberrypi","localhost","3"],["1487804536","IPv6","android.clients.google.com","android-a4.local","2"],["1487804536","IPv4","android.clients.google.com","android-a4.local","3"],["1487804545","IPv6","player.onleihe.de","android-53.local","2"],["1487804598","IPv6","clientservices.googleapis.com","android-53.local","2"], ... ]}
+{"data":[["1487804402","IPv6","raspberrypi","localhost","3"],
+["1487804402","IPv6","raspberrypi","localhost","3"],
+["1487804536","IPv6","android.clients.google.com","android-a4.local","2"],
+["1487804536","IPv4","android.clients.google.com","android-a4.local","3"],
+["1487804545","IPv6","player.onleihe.de","android-53.local","2"],
+["1487804598","IPv6","clientservices.googleapis.com","android-53.local","2"],
+ ... ]}
 ```
 
 *    First column: Timestamp of query
