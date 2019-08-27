@@ -106,7 +106,9 @@ I will change  the file like this:
 
 ### puppet repo
 
+```
 rpm -ivh http://yum.puppetlabs.com/puppetlabs-release-el-7.noarch.rpm
+```
 
 ## system proxy 
 
@@ -186,6 +188,40 @@ git checkout experiment -- app.js # then copy the version of app.js
                                   # from branch "experiment"
 ```
 
+### git move file to current branch from other 
+
+Yes you can run  multiple chains on one peer, all you need is to produce a configuration for each one of them and make your peer to join it. Just follow the following steps: 
+
+    You need to provide chain configuration within [ configtx.yaml ]
+
+    Use [ configtxgen ] to produce create channel transaction and updates for anchor peers
+
+configtxgen -profile PeerChannelProfile -channelID YourNewChannel -outputcreateChannelTx=newchannel.tx
+
+where PeerChannelProfile is the configuration profile you have defined in configtx.yaml file.
+
+Now an update is needed for anchor peers per organisations depending on he number of organisations as following:
+
+  configtxgen -profile PeerChannelProfile -channelID YourNewChannel -outputAchorPeersUpdate=Org1MSPAnchor.tx -asOrg=Org1MSP
+
+The above steps need to be repeated for each organisation.
+
+3. Now when you have create channel transaction you can actually make your peer to join the network by:
+
+peer channel create -o orderer:7050 -c YourNewChannel -f newchannel.tx
+
+This will produce the genesis block for your channel
+
+4. Make the peer join it:
+
+peer channel join -o orderer:7050 -c --blockpath YourNewChannel.block
+
+branch
+
+```
+git checkout otherbranch myfile.txt
+```
+
 ### delete branch
 
 To remove a local branch 
@@ -214,34 +250,6 @@ If the repository is completely under your control, you can try:
 
 Disabling TLS(/SSL) certificate verification globally is a terribly insecure practice. Don't do it. 
 Do not issue the above command with a `--global` modifier.
-
-## Some links 
-
-http://www.genericarticles.com/mediawiki/index.php?title=Clustering_%26_Tuning_elastic_search
-
-http://stackoverflow.com/questions/15694724/shards-and-replicas-in-elasticsearch	
-
-https://help.github.com/articles/creating-project-pages-manually/
-
-https://help.github.com/articles/setting-up-a-custom-domain-with-github-pages/
-
-http://jekyllrb.com/
-
-http://www.mkdocs.org/
-
-https://middlemanapp.com/basics/build_and_deploy/
-
-https://github.com/isnowfy/simple
-
-https://gohugo.io/overview/quickstart/
-
-http://ruhoh.com/
-
-https://github.com/bencentra/centrarium/blob/master/README.md
-
-http://jekyllthemes.org/themes/freshman21/
-
-http://jekyllrb.com/docs/github-pages/
 
 ## netcat 
 
@@ -413,12 +421,6 @@ for shard in $(curl -XGET http://localhost:9200/_cat/shards | grep UNASSIGNED | 
 done
 ```
 
-## links
-
-https://people.mozilla.org/~wkahngreene/elastic/guide/reference/api/admin-indices-open-close.html
-
-https://spuder.github.io/2015/elasticsearch-default-shards/
-
 ### Elastic 
 
 This is a common issue arising from the default index setting, in particularly, when you try to replicate on a single node. To fix this with transient cluster setting, do this:
@@ -444,7 +446,7 @@ Now sit back and watch the cluster clean up the unassigned replica shards. If yo
 index.number_of_replicas: 0
 ```
 
-## exlcude dash and empty lines
+## grep exlcude dash and empty lines
 
 ```
 # cat file |egrep -v "^#|^$"
@@ -466,6 +468,7 @@ To configure SSMTP, you will have to edit its configuration file (/etc/ssmtp/ssm
 ```
 /etc/ssmtp/ssmtp.conf
 ```
+
 ```
  # The user that gets all the mails (UID < 1000, usually the admin)
  root=username@gmail.com
@@ -492,7 +495,7 @@ To configure SSMTP, you will have to edit its configuration file (/etc/ssmtp/ssm
  FromLineOverride=yes
 ```
 
-Note: Take note, that the shown configuration is an example for Gmail, You may have to use other settings. If it is not working as expected read the man page man 8 ssmtp, please.
+**Note**: Take note, that the shown configuration is an example for Gmail, You may have to use other settings. If it is not working as expected read the man page man 8 ssmtp, please.
 
 Create aliases for local usernames (optional)
 
@@ -510,10 +513,10 @@ To test whether the Gmail server will properly forward your email:
 $ echo test | mail -v -s "testing ssmtp setup" tousername@somedomain.com
 ```
 
-##### https://easyengine.io/tutorials/linux/ubuntu-postfix-gmail-smtp/
+**Reference**: https://easyengine.io/tutorials/linux/ubuntu-postfix-gmail-smtp/
 
 
-###  Install cheat 
+###  Elastic cheat 
 
 you can always set it up externally while starting elasticsearch:
 
@@ -527,9 +530,9 @@ Try the following:
 
 The -e option allows regex patterns for matching.
 
-The single quotes around ^$ makes it work for Cshell. Other shells will be happy with either single or double quotes.
+The single quotes around `^$` makes it work for Cshell. Other shells will be happy with either single or double quotes.
 
-UPDATE: This works for me for a file with blank lines or "all white space" (such as windows lines with "\r\n" style line endings), whereas the above only removes files with blank lines and unix style line endings:
+UPDATE: This works for me for a file with blank lines or **"all white space"** (such as windows lines with `"\r\n"` style line endings), whereas the above only removes files with blank lines and unix style line endings:
 
 	grep -e -v '^[[:space:]]*$' foo.txt
 
@@ -565,9 +568,7 @@ You can use Nmap's snmp-brute something like
 
 	nmap -sU -p161 --script snmp-brute --script-args snmplist=community.lst 192.168.1.0/24
 
-## Check_MK
-
-Reinventorize with -II
+## Check-MK Reinventorize with cmk -II
 
 As of version 1.1.7i1 Check_MK supports the option -II. It does exactly the same as -I but removes all existing checks before doing the inventory. Only those checks are affected that are being inventorized. Example 1:
 
@@ -619,7 +620,7 @@ http://www.rsyslog.com/doc/rsyslog_conf_filter.html
 !is:starred !is:important label:unread 
 ```
 
-### bashrc
+### shell history bashrc
 
 Putting this in ~/.bashrc will apply @alvin's solution across different sessions as wlell
 
@@ -661,7 +662,7 @@ curl -sSL https://get.rvm.io | bash -s stable
 
 When this is complete, you need to restart your terminal for the rvm to work.
 
-Now, run rvm list known
+Now, run `rvm list known`
 
 This shows the list of versions of the ruby.
 
@@ -671,8 +672,45 @@ If you type `ruby -v` in the terminal, you should see `ruby 2.4.2`.
 
 If it still shows you ruby 2.0., run `rvm use ruby-2.4.2 --default`.
 
+### switch ruby version
 
-#### I was able to unistall jdk 8 in mavericks successfully doing the following steps:
+```
+$ hist rvm
+$ curl -sSL https://get.rvm.io | bash -s stable
+$ rvm list known
+$ rvm install ruby-2.4.2
+$ rvm use ruby-2.4.2 --default
+
+RVM is not a function, selecting rubies with 'rvm use ...' will not work.
+
+You need to change your terminal emulator preferences to allow login shell.
+Sometimes it is required to use `/bin/bash --login` as the command.
+Please visit https://rvm.io/integration/gnome-terminal/ for an example.
+```
+```
+Warning! PATH is not properly set up, '/Users/jaci/.rvm/gems/ruby-2.4.2/bin' is not at first place.
+         Usually this is caused by shell initialization files. Search for 'PATH=...' entries.
+         You can also re-add RVM to your profile by running: 'rvm get stable --auto-dotfiles'.
+         To fix it temporarily in this shell session run: 'rvm use ruby-2.4.2'.
+         To ignore this error add rvm_silence_path_mismatch_check_flag=1 to your ~/.rvmrc file.
+Warning, new version of rvm available '1.29.8-next', you are using older version '1.29.3'.
+You can disable this warning with:    echo rvm_autoupdate_flag=0 >> ~/.rvmrc
+You can enable  auto-update  with:    echo rvm_autoupdate_flag=2 >> ~/.rvmrc
+
+$ bundle install
+
+Downloading jekyll-3.6.3 revealed dependencies not in the API or the lockfile (kramdown (~> 1.14), rouge (< 3, >= 1.7)).
+Either installing with `--full-index` or running `bundle update jekyll` should fix the problem.
+
+In Gemfile:
+  github-pages was resolved to 155, which depends on
+    jekyll-avatar was resolved to 0.4.2, which depends on
+      jekyll
+```
+
+## Uninstall java JDK MacOS
+ 
+I was able to unistall jdk 8 in mavericks successfully doing the following steps:
 
 Run this command to just remove the JDK
 
@@ -689,16 +727,6 @@ sudo rm -rf /Library/LaunchAgents/com.oracle.java.Java-Updater.plist
 sudo rm -rf /Library/PrivilegedHelperTools/com.oracle.java.JavaUpdateHelper
 sudo rm -rf /Library/LaunchDaemons/com.oracle.java.Helper-Tool.plist
 sudo rm -rf /Library/Preferences/com.oracle.java.Helper-Tool.plist
-```
-
-### chrome
-
-There is an issue with Google Chrome that it creates a temp file to check for updates every x hours. Since it's making a new temp file for some reason it sets off Little Snitch, which is quite annoying.
-
-By entering the following code into Terminal, it will make it check once a week rather than every few hours:
-
-```
-defaults write com.google.Keystone.Agent checkInterval 604800
 ```
 
 ### systemd send logs
@@ -752,10 +780,19 @@ Follow these steps [https://coderwall.com/p/v1agsg/installing-etckeeper-to-store
 
 ## Debian Update
 
+First update the current version to the lastest packages.
+
 ```
-$ sudo sed -i /deb/s/jessie/stretch/g /etc/apt/sources.list
-$ sudo sed -i /deb/s/jessie/stretch/g /etc/apt/sources.list.d/*.list
+apt-get update && apt-get -y upgrade && apt-get -y dist-upgrade
 ```
+
+Reboot if you're able to, if not just go through editing `sources.list`.
+
+```
+$ sed -i /deb/s/jessie/stretch/g /etc/apt/sources.list
+$ sed -i /deb/s/jessie/stretch/g /etc/apt/sources.list.d/*.list
+```
+After that, run again `update`, `upgrade` and `dist-upgrade`.
 
 ## gpg-agent
 

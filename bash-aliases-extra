@@ -60,6 +60,9 @@ alias dki="docker run -t -i -P"
 ## docker container names
 alias dnames="docker ps | awk '{print $NF}'"
 
+## docker images list
+alias dimages="docker images |awk {'print $1,\"- \"$2'}"
+
 ## K8 alias
 
 alias getpods="kubectl get pods"
