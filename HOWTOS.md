@@ -821,17 +821,19 @@ url: http://www.example.com/path
 
 ```
 curl -O https://storage.googleapis.com/golang/go1.11.2.linux-amd64.tar.gz
- tar xvzf go1.11.2.linux-amd64.tar.gz 
- sudo mv go /usr/local/
- export GOPATH=/usr/local/go
- export PATH=$PATH:$GOPATH/bin
- echo $PATH
- echo $GOPATH
- echo "export GOPATH=/usr/local/go" >> .bashrc 
- echo "export PATH=$PATH:$GOPATH/bin" >> .bashrc 
- go version
- export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
- go version
+tar xvzf go1.11.2.linux-amd64.tar.gz 
+sudo mv go /usr/local/
+export GOROOT=/usr/local/go 
+export GOPATH=$HOME/src/workspace
+export PATH=$GOROOT/bin:$GOPATH/bin:$PATH
+echo $GOROOT
+echo $GOPATH
+echo "export GOROOT=/usr/local/go" >> .bashrc 
+echo "export GOPATH=$HOME/src/workspace" .bashrc
+echo "export PATH=$GOROOT/bin:$GOPATH/bin:$PATH" >> .bashrc 
+go version
 ```
+
+
 
 #######################################################################################################

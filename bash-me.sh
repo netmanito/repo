@@ -12,7 +12,6 @@ if [ -z "$ALIASES" ]; then
         echo "adding bash_aliases to .bashrc"
         echo "updating shell"
         cat ./bash-aliases-functions >> ~/.bash_aliases
-        source ~/.bashrc
         rm bash-aliases-{extra,functions}
         echo "All Done!!"
 else
@@ -25,8 +24,10 @@ else
         cat ./bash-aliases-extra >> ~/.bash_aliases
         cat ./bash-aliases-functions >> ~/.bash_aliases
         echo "updating shell"
-        source ~/.bashrc
         rm bash-aliases-{extra,functions}
         echo "All Done!!"
 
 fi
+
+echo "sourcing bashrc"
+source $HOME/.bashrc

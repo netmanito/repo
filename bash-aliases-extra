@@ -1,6 +1,6 @@
 ## basic helpfull alias
 
-alias ssh='ssh -C'
+alias ssh='ssh -vC'
 alias pid=' ps aux -ww|cut -d : -f 2'
 alias l='ls -lGh'
 alias lt=' ls -ltras'
@@ -22,6 +22,7 @@ alias descargas='cd ~/Downloads'
 alias downloads='cd ~/Downloads'
 alias pong='ping google.es'
 alias desktop='cd ~/Desktop'
+alias c='clear'
 
 ## Virtualbox
 
@@ -33,34 +34,26 @@ alias flushcache='sudo dscacheutil -flushcache;sudo killall -HUP mDNSResponder; 
 alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
 alias ShowFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
 alias finderKill="killall Finder"
-alias c='clear'
 
 ## Docker alias
 alias dps='docker ps'
 alias drm='docker rm $1'
 alias dstop='docker stop $1'
-
 ## killing in the name of 
 ## for i in `docker ps |awk {'print $1'} | grep '[a-z,0-9]'`; do docker stop $i;done
 alias dkill='docker kill $(docker ps -q)'
-
 ## stats
 alias dstats='docker stats $(docker ps --format={{.Names}})'
-
 # Delete all containers
 alias dockerclean='docker system prune'
-
 # Delete all images
 alias dockerrmi='docker rmi -f $(docker images -q)'
-
 ## remove all non-running containers
 alias dclean='docker rmi $(docker images --filter dangling=true -q --no-trunc)'
 ## run interactive containers
 alias dki="docker run -t -i -P"
-
 ## docker container names
 alias dnames="docker ps | awk '{print $NF}'"
-
 ## docker images list
 alias dimages="docker images |awk {'print $1,\"- \"$2'}"
 
@@ -74,7 +67,5 @@ alias getdep="kubectl get deployments"
 alias kc="kubectl"
 alias getports="kubectl get svc"
 
-## Functions
-
-## End
+## aliases End
 

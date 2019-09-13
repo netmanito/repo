@@ -46,15 +46,5 @@ function dusort() {
 function del-ssh() {
    sed -i -e $1d ~/.ssh/known_hosts
 }
-
-## docker logs
-function dlogs() {
-  LOG="$(which log)"
-  if [ -z "$LOG" ]; then
-	for i in `docker ps |grep '"' |awk {'print $1'}`; do docker logs -f $i;done
-  else
-	log stream --predicate 'eventMessage contains "docker"'
-  fi
-}
 ## End
 
