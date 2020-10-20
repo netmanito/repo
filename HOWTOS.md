@@ -40,7 +40,8 @@ docker rmi $(docker images -q)
 ### Split window 
 
 ```
-CRTL+a SHIFT-s: screen-split
+CRTL+a SHIFT-s: screen-split horizontal
+CRTL+a SHIFT-|: screen-split vertical
 
 CTRL+a y TAB (tabulación): moves between spaces
 ```
@@ -513,7 +514,7 @@ To test whether the Gmail server will properly forward your email:
 $ echo test | mail -v -s "testing ssmtp setup" tousername@somedomain.com
 ```
 
-**Reference**: https://easyengine.io/tutorials/linux/ubuntu-postfix-gmail-smtp/
+**Reference**: [https://easyengine.io/tutorials/linux/ubuntu-postfix-gmail-smtp/](https://www.elastic.co/guide/en/beats/winlogbeat/7.6/winlogbeat-installation.html)
 
 
 ###  Elastic cheat 
@@ -834,6 +835,28 @@ echo "export PATH=$GOROOT/bin:$GOPATH/bin:$PATH" >> .bashrc
 go version
 ```
 
+## Top alternatives
 
+1. **htop**	Provides a full list of processes running
+2. **Glances**	System monitoring tool written in Python
+3. **Conky**	Advanced, highly configurable system monitor for X based on torsmo
+4. **nmon**	Performance monitoring tool
+5. **atop**	Monitor for system resources and process activity
+6. **gtop**	System monitoring dashboard for the terminal
+7. **Linux Process Viewer**	Enables fine grained examination of processes
+
+## SlideShow
+
+From imagemagick:
+
+```
+animate -pause *.jpg
+```
+
+You can also use mplayer:
+
+```
+mplayer mf://*.jpg -mf fps=10
+```
 
 #######################################################################################################

@@ -236,7 +236,7 @@ POST quorum-2018.10*/_delete_by_query
 
 #### Remote Index
 
-	POST _reindex
+	POST _reindex?wait_for_completion=false
 	{
 	  "source": {
 	    "remote": {
@@ -249,3 +249,11 @@ POST quorum-2018.10*/_delete_by_query
 	  }
 	}
 
+
+#### Tasks Views
+
+	GET _tasks?detailed=true&actions=*reindex
+
+	GET /_tasks/dpkeVAzkR0GK3e7H5yb4-g:30331419
+
+	POST _tasks/_cancel?actions=*reindex
