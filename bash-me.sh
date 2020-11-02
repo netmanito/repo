@@ -1,5 +1,5 @@
 #!/bin/bash
-
+cd $HOME
 ALIASES="$(find ~/ -name .bash_aliases)"
 
 if [ -z "$ALIASES" ]; then
@@ -12,7 +12,7 @@ if [ -z "$ALIASES" ]; then
         echo "adding bash_aliases to .bashrc"
         echo "updating shell"
         cat ./bash-aliases-functions >> ~/.bash_aliases
-        rm bash-aliases-{extra,functions}
+        rm $HOME/bash-aliases-{extra,functions}
         echo "All Done!!"
 else
         echo "Downloading bash aliases extra"
@@ -24,10 +24,10 @@ else
         cat ./bash-aliases-extra >> ~/.bash_aliases
         cat ./bash-aliases-functions >> ~/.bash_aliases
         echo "updating shell"
-        rm bash-aliases-{extra,functions}
+        rm $HOME/bash-aliases-{extra,functions}
         echo "All Done!!"
 
 fi
 
 echo "sourcing bashrc"
-source $HOME/.bashrc
+source .bashrc
