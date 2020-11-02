@@ -1,0 +1,200 @@
+PUT _template/speedtest_template
+{
+  "order": 0,
+  "index_patterns": [
+    "speedtest-*"
+  ],
+  "settings": {
+      "number_of_shards": "1",
+      "number_of_replicas": "0",
+       "index.lifecycle.name": "speedtest_policy",
+       "index.lifecycle.rollover_alias": "speedtest"
+  },
+  "mappings": {
+      "properties": {
+        "location": {
+          "type": "geo_point"
+        },
+          "download" : {
+          "properties" : {
+            "bandwidth" : {
+              "type" : "long"
+            },
+            "bytes" : {
+              "type" : "long"
+            },
+            "elapsed" : {
+              "type" : "long"
+            }
+          }
+        },
+        "host" : {
+          "type" : "text",
+          "fields" : {
+            "keyword" : {
+              "type" : "keyword",
+              "ignore_above" : 256
+            }
+          }
+        },
+        "interface" : {
+          "properties" : {
+            "externalIp" : {
+              "type" : "ip"
+            },
+            "internalIp" : {
+              "type" : "ip"
+            },
+            "isVpn" : {
+              "type" : "boolean"
+            },
+            "macAddr" : {
+              "type" : "text",
+              "fields" : {
+                "keyword" : {
+                  "type" : "keyword",
+                  "ignore_above" : 256
+                }
+              }
+            },
+            "name" : {
+              "type" : "text",
+              "fields" : {
+                "keyword" : {
+                  "type" : "keyword",
+                  "ignore_above" : 256
+                }
+              }
+            }
+          }
+        },
+        "isp" : {
+          "type" : "text",
+          "fields" : {
+            "keyword" : {
+              "type" : "keyword",
+              "ignore_above" : 256
+            }
+          }
+        },
+        "packetLoss" : {
+          "type" : "float"
+        },
+        "path" : {
+          "type" : "text",
+          "fields" : {
+            "keyword" : {
+              "type" : "keyword",
+              "ignore_above" : 256
+            }
+          }
+        },
+        "ping" : {
+          "properties" : {
+            "jitter" : {
+              "type" : "float"
+            },
+            "latency" : {
+              "type" : "float"
+            }
+          }
+        },
+        "result" : {
+          "properties" : {
+            "id" : {
+              "type" : "text",
+              "fields" : {
+                "keyword" : {
+                  "type" : "keyword",
+                  "ignore_above" : 256
+                }
+              }
+            },
+            "url" : {
+              "type" : "text",
+              "fields" : {
+                "keyword" : {
+                  "type" : "keyword",
+                  "ignore_above" : 1024
+                }
+              }
+            }
+          }
+        },
+        "server" : {
+          "properties" : {
+            "country" : {
+              "type" : "text",
+              "fields" : {
+                "keyword" : {
+                  "type" : "keyword",
+                  "ignore_above" : 256
+                }
+              }
+            },
+            "host" : {
+              "type" : "text",
+              "fields" : {
+                "keyword" : {
+                  "type" : "keyword",
+                  "ignore_above" : 256
+                }
+              }
+            },
+            "id" : {
+              "type" : "long"
+            },
+            "ip" : {
+              "type" : "ip"
+            },
+            "name" : {
+              "type" : "text",
+              "fields" : {
+                "keyword" : {
+                  "type" : "keyword",
+                  "ignore_above" : 256
+                }
+              }
+            },
+            "port" : {
+              "type" : "long"
+            }
+          }
+        },
+        "tags" : {
+          "type" : "text",
+          "fields" : {
+            "keyword" : {
+              "type" : "keyword",
+              "ignore_above" : 256
+            }
+          }
+        },
+        "timestamp" : {
+          "type" : "date"
+        },
+        "type" : {
+          "type" : "text",
+          "fields" : {
+            "keyword" : {
+              "type" : "keyword",
+              "ignore_above" : 256
+            }
+          }
+        },
+        "upload" : {
+          "properties" : {
+            "bandwidth" : {
+              "type" : "long"
+            },
+            "bytes" : {
+              "type" : "long"
+            },
+            "elapsed" : {
+              "type" : "long"
+            }
+          }
+        }
+    }
+  }
+}
