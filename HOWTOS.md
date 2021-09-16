@@ -17,7 +17,7 @@ encfsctl passwd /home/bredsaal/encfs_test/plain/
 
 depending on how you use ES, in my cases, I would never have indexes over half my RAM - Sorry - I cant wait for ages for data :)
 
-## Docker tip
+## Docker tips
 
 ```
 #!/bin/bash
@@ -26,6 +26,16 @@ docker rm $(docker ps -a -q)
 # Delete all images
 docker rmi $(docker images -q)
 ```
+
+## Docker compose restart worker
+
+```
+docker-compose stop -t 1 worker
+docker-compose build worker
+docker-compose up --no-start worker
+docker-compose start worker
+```
+
 
 ## Dns reload mac os 
 
@@ -189,35 +199,7 @@ git checkout experiment -- app.js # then copy the version of app.js
                                   # from branch "experiment"
 ```
 
-### git move file to current branch from other 
-
-Yes you can run  multiple chains on one peer, all you need is to produce a configuration for each one of them and make your peer to join it. Just follow the following steps: 
-
-    You need to provide chain configuration within [ configtx.yaml ]
-
-    Use [ configtxgen ] to produce create channel transaction and updates for anchor peers
-
-configtxgen -profile PeerChannelProfile -channelID YourNewChannel -outputcreateChannelTx=newchannel.tx
-
-where PeerChannelProfile is the configuration profile you have defined in configtx.yaml file.
-
-Now an update is needed for anchor peers per organisations depending on he number of organisations as following:
-
-  configtxgen -profile PeerChannelProfile -channelID YourNewChannel -outputAchorPeersUpdate=Org1MSPAnchor.tx -asOrg=Org1MSP
-
-The above steps need to be repeated for each organisation.
-
-3. Now when you have create channel transaction you can actually make your peer to join the network by:
-
-peer channel create -o orderer:7050 -c YourNewChannel -f newchannel.tx
-
-This will produce the genesis block for your channel
-
-4. Make the peer join it:
-
-peer channel join -o orderer:7050 -c --blockpath YourNewChannel.block
-
-branch
+### git move file to current branch from other branch
 
 ```
 git checkout otherbranch myfile.txt
@@ -403,7 +385,7 @@ grep -e -v '^[[:space:]]*$' foo.txt
 
 #######################################################################################################
 
-https://t37.net/how-to-fix-your-elasticsearch-cluster-stuck-in-initializing-shards-mode.html
+[https://t37.net/how-to-fix-your-elasticsearch-cluster-stuck-in-initializing-shards-mode.html](https://t37.net/how-to-fix-your-elasticsearch-cluster-stuck-in-initializing-shards-mode.html)
 
 ```
 for shard in $(curl -XGET http://localhost:9200/_cat/shards | grep UNASSIGNED | awk '{print $2}'); do

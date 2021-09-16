@@ -23,6 +23,7 @@ alias downloads='cd ~/Downloads'
 alias pong='ping google.es'
 alias desktop='cd ~/Desktop'
 alias c='clear'
+alias e='exit'
 
 ## Virtualbox
 

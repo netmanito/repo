@@ -1,0 +1,18 @@
+OVPN1 %{IP:client_ip}:%{NUMBER:client_port} (?:%{DATA:action}|\[%{DATA:action}\])?(?:\:)%{GREEDYDATA:syslog_message}
+
+146.88.240.4:58066 TLS: Initial packet from [AF_INET]146.88.240.4:58066, sid=1212121212121212
+146.88.240.4:58066 TLS Error: TLS key negotiation failed to occur within 60 seconds (check your network connectivity)
+176.83.195.140:12771 VERIFY OK: depth=1, C=ES, ST=CA, L=Barcelona, O=Seriousman, OU=Se
+riousMan, CN=Seriousman CA, name=server, emailAddress=jaci@seriousman.org
+176.83.195.140:12771 peer info: IV_VER=3.git::2952f561
+176.83.195.140:12771 peer info: IV_NCP=2
+
+
+OVPN2 %{IP:client_ip}:%{NUMBER:client_port} (?:%{WORD:action}|\[%{WORD:action}\])?%{GREEDYDATA:syslog_message}
+
+146.88.240.4:58066 SIGUSR1[soft,tls-error] received, client-instance restarting
+
+176.83.195.140:12771 [client1] Peer Connection Initiated with [AF_INET]176.83.195.140:12771
+
+
+%{IP:client_ip}:%{NUMBER:client_port} (?:%{WORD:action}|\[%{WORD:action}\]|%{DATA:action}|\[%{DATA:action}\])?(?:\:)?%{GREEDYDATA:syslog_message}

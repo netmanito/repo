@@ -1,8 +1,5 @@
 ### ReadMe First
 
-  
-
-
 **`They lied to us!`**  
 
 **`This was suposed to be the future?`**

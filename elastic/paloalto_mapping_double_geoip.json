@@ -1,0 +1,245 @@
+{
+  "_doc": {
+    "properties": {
+      "eventid": {
+        "type": "keyword"
+      },
+      "other": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "ignore_above": 256,
+            "type": "keyword"
+          }
+        }
+      },
+      "dstport": {
+        "type": "integer"
+      },
+      "natsrcport": {
+        "type": "integer"
+      },
+      "natdst": {
+        "type": "ip"
+      },
+      "bytes_received": {
+        "type": "long"
+      },
+      "ip_src": {
+        "type": "ip"
+      },
+      "rule": {
+        "type": "keyword"
+      },
+      "event_timestamp": {
+        "format": "yyyy/MM/dd HH:mm:ss||yyyy/MM/dd||epoch_millis",
+        "type": "date"
+      },
+      "type": {
+        "type": "keyword"
+      },
+      "natdstport": {
+        "type": "integer"
+      },
+      "packets": {
+        "type": "integer"
+      },
+      "device_name": {
+        "type": "keyword"
+      },
+      "dst_geoip": {
+        "dynamic": true,
+        "type": "object",
+        "properties": {
+          "ip": {
+            "type": "ip"
+          },
+          "latitude": {
+            "type": "half_float"
+          },
+          "location": {
+            "type": "geo_point"
+          },
+          "longitude": {
+            "type": "half_float"
+          }
+        }
+      },
+      "dstuser": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "ignore_above": 256,
+            "type": "keyword"
+          }
+        }
+      },
+      "@version": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "ignore_above": 256,
+            "type": "keyword"
+          }
+        }
+      },
+      "host": {
+        "type": "keyword"
+      },
+      "action": {
+        "type": "keyword"
+      },
+      "src_geoip": {
+        "dynamic": true,
+        "type": "object",
+        "properties": {
+          "ip": {
+            "type": "ip"
+          },
+          "latitude": {
+            "type": "half_float"
+          },
+          "location": {
+            "type": "geo_point"
+          },
+          "longitude": {
+            "type": "half_float"
+          }
+        }
+      },
+      "direction": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "ignore_above": 256,
+            "type": "keyword"
+          }
+        }
+      },
+      "misc": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "ignore_above": 256,
+            "type": "keyword"
+          }
+        }
+      },
+      "severity": {
+        "type": "keyword"
+      },
+      "threatid": {
+        "type": "keyword"
+      },
+      "natsrc": {
+        "type": "ip"
+      },
+      "pan_message": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "ignore_above": 256,
+            "type": "keyword"
+          }
+        }
+      },
+      "opaque": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "ignore_above": 256,
+            "type": "keyword"
+          }
+        }
+      },
+      "module": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "ignore_above": 256,
+            "type": "keyword"
+          }
+        }
+      },
+      "traffic_subtype": {
+        "type": "keyword"
+      },
+      "message": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "ignore_above": 256,
+            "type": "keyword"
+          }
+        }
+      },
+      "bytes_sent": {
+        "type": "long"
+      },
+      "dst_zone": {
+        "type": "keyword"
+      },
+      "ip_dst": {
+        "type": "ip"
+      },
+      "tags": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "ignore_above": 256,
+            "type": "keyword"
+          }
+        }
+      },
+      "src_location": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "ignore_above": 256,
+            "type": "keyword"
+          }
+        }
+      },
+      "srcuser": {
+        "type": "keyword"
+      },
+      "threat_subtype": {
+        "type": "keyword"
+      },
+      "cliente_ip": {
+        "path": "ip_src",
+        "type": "alias"
+      },
+      "@timestamp": {
+        "type": "date"
+      },
+      "system_subtype": {
+        "type": "keyword"
+      },
+      "application": {
+        "type": "keyword"
+      },
+      "bytes": {
+        "type": "long"
+      },
+      "src_zone": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "ignore_above": 256,
+            "type": "keyword"
+          }
+        }
+      },
+      "proto": {
+        "type": "keyword"
+      },
+      "srcport": {
+        "type": "integer"
+      },
+      "elaspsed": {
+        "type": "long"
+      }
+    }
+  }
+}
